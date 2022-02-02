@@ -1,9 +1,8 @@
 const express = require('express');
-const { Op } = require("sequelize");
 const router = express.Router();
 const axios = require('axios')
+const { Op } = require("sequelize");
 const { Videogame, Genre } = require('../db');
-require('dotenv').config();
 const { API_KEY } = process.env
 
 /*
@@ -11,14 +10,19 @@ ENDPOINTS
     https://api.rawg.io/api/games?search={game}
     https://api.rawg.io/api/games
  
+
 */
 
 router.get('/', async (req, res, next) => {
     const name = req.query.name;
+
     // pedido db
     const dataBaseGames = await Videogame.findAll({
         attributes: ['id','name', 'img'],
-        include: [{model: Genre}]
+        include: [{
+            model: Genre,
+            // attributes: ['name']
+        }]
     }) 
     if(name) {
         const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
@@ -32,7 +36,10 @@ router.get('/', async (req, res, next) => {
 
         const getDBGameByName = await Videogame.findAll({
             attributes:['id','name','img'],
-            include: [{model: Genre}],
+            include: [{
+                model: Genre,
+                attributes:['name']
+            }],
             where: {
                 name:{ [Op.iLike]:`%${name}%` }  
             }
@@ -58,6 +65,7 @@ router.get('/', async (req, res, next) => {
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=5`)                
         ])
             .then((response) => {
+                // console.log(response)
                 let getApiGames = [];
                 for (let i = 0; i < response.length; i++) {
                     getApiGames = [...getApiGames, ...response[i].data.results]
@@ -78,10 +86,7 @@ router.get('/', async (req, res, next) => {
                 //console.log(apiGames.length)
                 res.send(allGames)
             }).catch(next)
-
     }
-
-
 });
 
 
