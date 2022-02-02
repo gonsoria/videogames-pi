@@ -15,18 +15,21 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     platform: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull:false
     },
     released: {
       type: DataTypes.STRING
     },
     rating:{
       type: DataTypes.INTEGER
+    },
+    img: {
+      type: DataTypes.STRING
     }
   });
 };

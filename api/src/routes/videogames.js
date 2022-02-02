@@ -1,68 +1,90 @@
 const express = require('express');
+const { Op } = require("sequelize");
 const router = express.Router();
 const axios = require('axios')
-const { Videogame } = require('../db')
-
-//necesito dotenv para trabajar con las claves de .env
+const { Videogame, Genre } = require('../db');
 require('dotenv').config();
 const { API_KEY } = process.env
 
-//ROUTES
+/*
+ENDPOINTS
+    https://api.rawg.io/api/games?search={game}
+    https://api.rawg.io/api/games
+ 
+*/
 
-//get all video games  ---> endpoint  https://api.rawg.io/api/games
-router.get('/a',  async (req,res,next) => {
-    try {
-        const getApiGames = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`) // pedido API
-        const apiGames = getApiGames.data.results.map(videogame => {
+
+//ROUTES
+router.get('/', async (req, res, next) => {
+    const name = req.query.name;
+    // pedido db
+    const dataBaseGames = await Videogame.findAll({
+        attributes: ['id','name', 'img'],
+        include: [{model: Genre}]
+    }) 
+    if(name) {
+        const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
+        const apiGamesByName = getApiGamesByName.data.results.map(videogame => {
             return {
                 id: videogame.id,
                 name: videogame.name,
                 img: videogame.background_image,
-                genre: videogame.genres
+                genres: videogame.genres.map(genre => genre.name)
+            }})
+
+        const getDBGameByName = await Videogame.findAll({
+            attributes:['id','name','img'],
+            include: [{model: Genre}],
+            where: {
+                name:{ [Op.iLike]:`%${name}%` }  
             }
-        }) 
-        
-        const dataBaseGames = await Videogame.findAll() // pedido db
-        if(dataBaseGames.length < 1) {
-            res.send(apiGames)
-        } else{
-            const allGames = [           // array con todos los juegos traidos de la API y la DB
-                ...apiGames,
-                ...dataBaseGames
-            ]
-            res.send(allGames);
+        })
+
+        if(getDBGameByName.length < 1 && apiGamesByName.length < 1 ) {
+            res.send('No games found')
+        } else {
+            const searchResult = [
+                ...getDBGameByName,
+                ...apiGamesByName
+            ] 
+            res.send(searchResult.slice(0,15))
         }
 
-    } catch (err) {
-        next(err)
-    }
-});
-
-
-// get games by name (query) ---> endpoint  https://api.rawg.io/api/games?search={game}
-router.get('/', async (req, res, next) => {
-    const name = req.query.name;
-        try {
-            if(name){
-                const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
-                const apiGamesByName = getApiGamesByName.data.results.map(videogame => {
+    } else {
+        //pedido api
+        Promise.all([
+            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`),
+            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2`),
+            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=3`),
+            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=4`),
+            axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=5`)                
+        ])
+            .then((response) => {
+                let getApiGames = [];
+                for (let i = 0; i < response.length; i++) {
+                    getApiGames = [...getApiGames, ...response[i].data.results]
+                }                
+                const apiGames = getApiGames.map(videogame => {
                     return {
                         id: videogame.id,
                         name: videogame.name,
                         img: videogame.background_image,
-                        genre: videogame.genres
-                    }})
-                if(apiGamesByName.length < 1){
-                    res.send('No games found.')
-                } else{
-                    res.json(apiGamesByName.slice(0,15))   // me traigo los primeros 15 juegos del array 
-                }
-            } else {
-                res.send('No games found.')
-            }
-        } catch (err) {
-            next(err);
-        }
-})
+                        genres: videogame.genres.map(genre => genre.name)
+                    };
+                }); 
+    
+                const allGames = [      // array con todos los juegos traidos de la API y la DB
+                    ...dataBaseGames,
+                    ...apiGames
+                ]
+                //console.log(apiGames.length)
+                res.send(allGames)
+            }).catch(next)
+
+    }
+
+
+});
+
 
 module.exports = router; 
