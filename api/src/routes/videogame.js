@@ -6,11 +6,25 @@ const { Videogame, Genre } = require('../db')
 require('dotenv').config();
 const { API_KEY } = process.env
 
-//https://api.rawg.io/api/games/{id}
+/*
+ENDPOINT
+    https://api.rawg.io/api/games/{id} 
+*/
+
 router.get('/:id', async (req, res, next) => {
     const id = req.params.id;
     try {
-        if(id) {
+        if(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
+            const idSearch = await Videogame.findByPk(id, {
+                include: Genre
+            })
+            // console.log('es uuid')
+            if(!idSearch) {
+                res.send('Game data not found')
+            } else {
+                res.send(idSearch)
+            }
+        } else {
             const videoGameById = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
             const videoGameData = videoGameById.data
             const videoGameDetail = {
@@ -23,10 +37,8 @@ router.get('/:id', async (req, res, next) => {
                 rating: videoGameData.rating,
                 platform: videoGameData.platforms.map(elem => elem.platform.name)
             }
-            res.send(videoGameDetail)
-        } else {
-            res.send('Game not found')
-        }
+            res.send(videoGameDetail)            
+        }        
     } catch (err) {
         next(err)
     }
@@ -39,7 +51,8 @@ router.post('/', async (req, res, next) => {
         description,
         released,
         rating,
-        platform
+        platform,
+        img
     } = req.body
     try {
         const videogame = await Videogame.create({
@@ -47,7 +60,8 @@ router.post('/', async (req, res, next) => {
             description,
             released,
             rating,
-            platform
+            platform,
+            img
         })  
         res.send('Video game created')      
     } catch (err) {

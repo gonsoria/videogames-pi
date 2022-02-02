@@ -13,8 +13,6 @@ ENDPOINTS
  
 */
 
-
-//ROUTES
 router.get('/', async (req, res, next) => {
     const name = req.query.name;
     // pedido db
