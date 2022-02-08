@@ -31,7 +31,7 @@ router.get('/:id', async (req, res, next) => {
                     name: videoGameData.name,
                     img: videoGameData.background_image,
                     genre: videoGameData.genres.map(genre => genre.name),
-                    description: videoGameData.description,
+                    description: videoGameData.description_raw,
                     released: videoGameData.released,
                     rating: videoGameData.rating,
                     platform: videoGameData.platforms.map(elem => elem.platform.name)
@@ -46,11 +46,12 @@ router.get('/:id', async (req, res, next) => {
 //create videogame
 
 router.post('/', async (req, res, next) => {
-    const { videogameData, videogameGenre } = req.body
-    if(videogameData && videogameGenre){
+    const {videoGameData, videoGameGenre } = req.body
+    console.log(videoGameData,videoGameGenre)
+    if(videoGameData && videoGameGenre){
         try {
-            const newVideogame = await Videogame.create(videogameData) 
-            videogameGenre.forEach(async gen => {
+            const newVideogame = await Videogame.create(videoGameData) 
+            videoGameGenre.forEach(async gen => {
                 let dbSearch = await Genre.findAll({where: {id: gen}})
                 if(dbSearch) { 
                     newVideogame.addGenre(dbSearch)
@@ -65,5 +66,19 @@ router.post('/', async (req, res, next) => {
     }
 })
 
-
 module.exports = router;
+
+
+// {
+//     "videogameData":{ 
+//         "name":"gonzalo",
+//         "description":"! un juego",
+//         "img":"imagen",
+//         "rating": "5",
+//         "platform":["una", "otra"]
+//     },
+//     "videogameGenre":{
+//         "genres":[]
+//     }
+    
+// }

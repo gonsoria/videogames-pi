@@ -17,13 +17,23 @@ router.get('/', async (req, res, next) => {
     const name = req.query.name;
 
     // pedido db
-    const dataBaseGames = await Videogame.findAll({
+    const getDBGames = await Videogame.findAll({
         attributes: ['id','name', 'img'],
         include: [{
             model: Genre,
-            // attributes: ['name']
+            attributes:['name'],
+            through:{attributes:[]}
         }]
-    }) 
+    })
+    
+    const dataBaseGames = getDBGames.map(dbGames => {
+        return {
+            id:dbGames.id,
+            name:dbGames.name,
+            img:dbGames.img,
+            genres:dbGames.genres.map(ge=>ge.name)
+        }
+    })
     if(name) {
         const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
         const apiGamesByName = getApiGamesByName.data.results.map(videogame => {

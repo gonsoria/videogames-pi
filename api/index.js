@@ -33,12 +33,12 @@ conn.sync({ force: true }).then(async () => {
     const preLoadDb = apiGenresData.data.results?.map((genre) => {
       return {
         name: genre.name
-      }
+      } 
     })
     // console.log(preLoadDb)
     await Genre.bulkCreate(preLoadDb)
   }
   server.listen(3001, () => {
-    console.log('listening port 3001'); 
+    console.log(' listening port 3001 '); 
   });
 });
