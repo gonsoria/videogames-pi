@@ -19,13 +19,11 @@ export default function Details() {
 
     return (
         <div>
-            <Link to="/home">
-                <input type="button" value="Home" />
-            </Link>
+            <Link to='/home'>Home</Link>
             <h1>{detail.name}</h1>
             <img src={detail.img} alt={`${detail.name} imagen`} width='300px' />
             <div>
-                {detail.genre?.map((ge, index) => <h4 key={index}>{ge}</h4>)}
+                {detail.genres?.map((ge, index) => <h4 key={index}>{ge}</h4>)}
             </div>
             <p>{detail.description}</p>
             <h2>{detail.released} </h2>

@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getVideoGamesGenres } from '../redux/actions'
 
 
 export default function Form() {
+    //Estados
     const [videoGameData, setVideoGameData] = useState({
         name: '',
         description: '',
@@ -14,17 +16,18 @@ export default function Form() {
         img: '',
         created: true
     })
-
     const [videoGameGenre, setVideoGameGenre] = useState([])
 
     const dispatch = useDispatch()
-
+    const history = useHistory()
     const myState = useSelector(state => state.videoGamesGenres)
 
     useEffect(() => {
         dispatch(getVideoGamesGenres())
     }, [dispatch])
 
+
+    //Handlers
     const handleOnChange = (e) => {
         setVideoGameData({
             ...videoGameData,
@@ -46,13 +49,12 @@ export default function Form() {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(videoGameData, videoGameGenre)
-        axios.post('http://localhost:3001/videogame', { videoGameData: videoGameData, videoGameGenre: videoGameGenre })
-            .then(resp => {
-                console.log('data', resp)
-            })
+        const aux = await axios.post('http://localhost:3001/videogame', { videoGameData: videoGameData, videoGameGenre: videoGameGenre })
+        alert(aux.data)
+        history.push('/home')
     }
 
 

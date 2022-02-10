@@ -1,20 +1,13 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getVideoGames } from '../redux/actions'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import AllCards from './AllCards';
 import SideBar from './SideBar';
 import SearchBar from './SearchBar';
 
 export default function Home() {
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getVideoGames())
-    }, [dispatch])
-
     return (
         <div>
+            <Link to='/home'>Home</Link>
             <div>
                 <SearchBar />
             </div>

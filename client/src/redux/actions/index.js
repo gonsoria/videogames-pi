@@ -5,10 +5,18 @@ export const GET_VIDEOGAME_DETAIL = 'GET_VIDEOGAME_DETAIL'
 export const GET_VIDEOGAMES_GENRES = 'GET_VIDEOGAMES_GENRES'
 export const SEARCH_VIDEOGAME = 'SEARCH_VIDEOGAME'
 export const GET_VIDEOGAMES_PLATFORM= 'GET_VIDEOGAMES_PLATFORM'
+export const SORT_ASC = 'SORT_ASC'
+export const SORT_DESC = 'SORT_DESC'
+export const SORT_RATING_DESC = 'SORT_RATING_DESC'
+export const SORT_RATING_ASC = 'SORT_RATING_ASC'
+export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
+export const FILTER_BY_TYPE = 'FILTER_BY_TYPE'
+
 
 const URL_GET_VIDEOGAMES = 'http://localhost:3001/videogames'
 const URL_GET_GENRES = 'http://localhost:3001/genres'
 const URL_VIDEOGAME_DETAIL = 'http://localhost:3001/videogame/'
+const URL_SEARCH_VIDEOGAME = 'http://localhost:3001/videogames?name='
 
 
 export const getVideoGames = () => {
@@ -50,10 +58,55 @@ export const getVideoGamesGenres = () => {
 }
 
 
-export const searchVideoGame = (id) => {
-    return {
-        type: SEARCH_VIDEOGAME,
-        payload: id
+export const searchVideoGame = (searchName) => {
+    return async function(dispatch){
+        try {
+            let req = await axios.get(URL_SEARCH_VIDEOGAME + searchName)
+            dispatch({
+                type: SEARCH_VIDEOGAME,
+                payload: req.data
+            })            
+        } catch (error) {
+            
+        }
     }
 }
 
+export const sortVideoGamesAsc = () => {
+    return{
+        type:SORT_ASC,
+        payload:null
+    }
+}
+export const sortVideoGamesDesc = () => {
+    return{
+        type:SORT_DESC,
+        payload:null
+    }
+}
+export const sortRatingAsc = () => {
+    return{
+        type:SORT_RATING_ASC,
+        payload:null
+    }
+}
+export const sortRatingDesc = () => {
+    return{
+        type:SORT_RATING_DESC,
+        payload:null
+    }
+}
+
+export const filterByGenre = (name) => {
+    return {
+        type: FILTER_BY_GENRE,
+        payload: name
+    }
+}
+
+export const filterByType = (created) => {
+    return {
+        type: FILTER_BY_TYPE,
+        payload: created
+    }
+}

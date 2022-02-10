@@ -8,8 +8,7 @@ const { API_KEY } = process.env
 /*
 ENDPOINTS
     https://api.rawg.io/api/games?search={game}
-    https://api.rawg.io/api/games
- 
+    https://api.rawg.io/api/games 
 
 */
 
@@ -18,7 +17,7 @@ router.get('/', async (req, res, next) => {
 
     // pedido db
     const getDBGames = await Videogame.findAll({
-        attributes: ['id','name', 'img'],
+        attributes: ['id','name', 'img','created'],
         include: [{
             model: Genre,
             attributes:['name'],
@@ -28,12 +27,14 @@ router.get('/', async (req, res, next) => {
     
     const dataBaseGames = getDBGames.map(dbGames => {
         return {
-            id:dbGames.id,
+            id:dbGames.id, 
             name:dbGames.name,
             img:dbGames.img,
-            genres:dbGames.genres.map(ge=>ge.name)
+            genres:dbGames.genres.map(ge=>ge.name),
+            created:dbGames.created
         }
     })
+
     if(name) {
         const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
         const apiGamesByName = getApiGamesByName.data.results.map(videogame => {
@@ -41,7 +42,9 @@ router.get('/', async (req, res, next) => {
                 id: videogame.id,
                 name: videogame.name,
                 img: videogame.background_image,
-                genres: videogame.genres.map(genre => genre.name)
+                rating: videogame.rating,
+                genres: videogame.genres.map(genre => genre.name),
+                created: false
             }})
 
         const getDBGameByName = await Videogame.findAll({
@@ -65,7 +68,7 @@ router.get('/', async (req, res, next) => {
             res.send(searchResult.slice(0,15))
         }
 
-    } else {
+    } else { 
         //pedido api
         Promise.all([
             axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`),
@@ -85,7 +88,9 @@ router.get('/', async (req, res, next) => {
                         id: videogame.id,
                         name: videogame.name,
                         img: videogame.background_image,
-                        genres: videogame.genres.map(genre => genre.name)
+                        rating: videogame.rating,
+                        genres: videogame.genres.map(genre => genre.name),
+                        created: false
                     };
                 }); 
     
