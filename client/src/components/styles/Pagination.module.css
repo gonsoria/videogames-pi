@@ -1,0 +1,10 @@
+.nav_container {
+    display: flex;
+    margin:5px 0;
+    justify-content: center;
+}
+
+.button_container {
+    margin: 0;
+    padding: 0 7px;
+}

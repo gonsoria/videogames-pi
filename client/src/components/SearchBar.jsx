@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { searchVideoGame } from '../redux/actions';
+import styles from './styles/SearchBar.module.css'
 
 export default function SearchBar() {
     const [search, setSearch] = useState('');
@@ -19,13 +20,13 @@ export default function SearchBar() {
     }
 
     return (
-        <div>
-            <input type='text' placeholder='Search videogame' onChange={handleInput} value={search} />
+        <div className={styles.searchBar_container}>
+            <input type='text' placeholder='Search videogame' onChange={handleInput} value={search} className={styles.searchBar_input} />
 
-            <button onClick={handleSearch}>Search</button>
+            <button className={styles.searchBar_button} onClick={handleSearch}>Search</button>
 
-            <Link to="/create">
-                <input type="button" value="Create videogame" />
+            <Link to="/app/create">
+                <input className={styles.searchBar_create} type="button" value="Create videogame" />
             </Link>
         </div>
     );

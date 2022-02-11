@@ -1,0 +1,11 @@
+.card_container {
+    border: 1px solid black;    
+}
+
+.cardName_container {
+    border: 1px solid black;
+}
+
+.cardName_container h1{
+    margin: 0;
+}

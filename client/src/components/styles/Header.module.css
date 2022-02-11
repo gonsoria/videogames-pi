@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    width: 100vw;
+    padding: 15px 0;
+    margin-bottom: 10px;
+}
+
+.title_container {
+    margin: auto;
+}
+
+.title{
+    color: white;
+    margin: 0;
+}

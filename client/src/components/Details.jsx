@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getVideoGameDetail } from '../redux/actions';
-import { Link } from 'react-router-dom';
 
 
 export default function Details() {
@@ -19,7 +18,6 @@ export default function Details() {
 
     return (
         <div>
-            <Link to='/home'>Home</Link>
             <h1>{detail.name}</h1>
             <img src={detail.img} alt={`${detail.name} imagen`} width='300px' />
             <div>

@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { filterByType, getVideoGames, filterTypeStatus, getFilteredGames } from '../../redux/actions';
+import { filterByType, filterTypeStatus, getFilteredGames } from '../../redux/actions';
 
 export default function FilterByType() {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getVideoGames())
-    }, [dispatch])
 
     const handleChange = (e) => {
         if (e.target.value === 'all') {

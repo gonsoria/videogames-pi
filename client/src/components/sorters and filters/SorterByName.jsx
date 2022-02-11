@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { sortVideoGamesAsc, sortVideoGamesDesc } from '../../redux/actions'
 
 export default function SorterByName() {
+
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
@@ -13,14 +14,13 @@ export default function SorterByName() {
             dispatch(sortVideoGamesDesc())
         }
     }
-
     useEffect(() => {
     }, [dispatch])
 
     return (
         <div>
-            <select onChange={handleChange}>
-                <option value='Orden'>Selecciona un orden</option>
+            <select onChange={handleChange} >
+                <option value='Orden' >Selecciona un orden</option>
                 <option value='A'>A-Z</option>
                 <option value='Z'>Z-A</option>
             </select>

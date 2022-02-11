@@ -49,18 +49,18 @@ export default function rootReducer (state = initialState, action) {
                 videoGames: action.payload
             }
         case SORT_ASC:
-           const sortAsc = state.videoGames.sort((a,b) => {
-                if(a.name.toLowerCase() < b.name.toLowerCase()){
-                    return -1
-                } else if(a.name.toLowerCase() > b.name.toLowerCase()){
-                    return 1
-                } else {
-                    return 0
-                }
-            })
             return{
                 ...state,
-                videoGames: sortAsc
+                videoGames: state.videoGames.sort((a,b) => {
+                    if(a.name.toLowerCase() < b.name.toLowerCase()){
+                        return -1
+                    } else if(a.name.toLowerCase() > b.name.toLowerCase()){
+                        return 1
+                    } else {
+                        return 0
+                    }
+                })
+    
             }
         case SORT_DESC:
             return{

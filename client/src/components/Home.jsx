@@ -1,20 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AllCards from './AllCards';
 import SideBar from './SideBar';
 import SearchBar from './SearchBar';
+import styles from './styles/Home.module.css'
 
 export default function Home() {
+
     return (
-        <div>
-            <Link to='/home'>Home</Link>
-            <div>
-                <SearchBar />
-            </div>
-            <div>
+        <div className={styles.home}>
+            <div className={styles.sideBar}>
                 <SideBar />
             </div>
-            <div>
+            <div className={styles.app_container}>
+                <SearchBar />
                 <AllCards />
             </div>
         </div>

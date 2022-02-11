@@ -1,0 +1,12 @@
+.home {
+    display: flex;
+}
+
+.sideBar {
+    flex-grow: 1;
+}
+
+.app_container {
+    flex-grow: 4;
+}
+

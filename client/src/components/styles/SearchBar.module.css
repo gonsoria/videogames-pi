@@ -1,0 +1,19 @@
+.searchBar_container {
+    border: 1px solid black;
+    display:flex;
+    align-items: baseline;
+    padding: 5px ;
+    width: 80vw;
+}
+
+.searchBar_input{
+    flex-grow: 2;
+    padding: 3px;
+}
+
+.searchBar_button ,
+.searchBar_create {
+    padding: 3px;
+    margin:0 5px;
+    flex-grow: 1;
+}

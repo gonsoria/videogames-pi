@@ -19,7 +19,6 @@ const URL_GET_GENRES = 'http://localhost:3001/genres'
 const URL_VIDEOGAME_DETAIL = 'http://localhost:3001/videogame/'
 const URL_SEARCH_VIDEOGAME = 'http://localhost:3001/videogames?name='
 
-
 export const getVideoGames = () => {
     return async function (dispatch) {
         try {
@@ -67,8 +66,8 @@ export const searchVideoGame = (searchName) => {
                 type: SEARCH_VIDEOGAME,
                 payload: req.data
             })            
-        } catch (error) {
-            
+        } catch (err) {
+            console.log(err)
         }
     }
 }
@@ -78,6 +77,7 @@ export const sortVideoGamesAsc = () => {
         type:SORT_ASC,
         payload:null
     }
+
 }
 export const sortVideoGamesDesc = () => {
     return{

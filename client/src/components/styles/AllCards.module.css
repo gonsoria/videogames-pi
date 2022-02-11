@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    width: 80vw;
+    padding: 5px;
+    border: 1px solid black;
+}
+.cards_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.card {
+    width: 25vw;
+    margin: 0.83vw;
+    overflow: hidden;
+}
