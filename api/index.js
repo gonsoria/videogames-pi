@@ -25,7 +25,7 @@ const { API_KEY } = process.env
 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(async () => {
+conn.sync({ force: false }).then(async () => {
 
   const dbVerification = await Genre.findAll();
   if (dbVerification.length < 1) {

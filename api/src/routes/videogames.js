@@ -42,21 +42,17 @@ router.get('/', async (req, res, next) => {
                 id: videogame.id,
                 name: videogame.name,
                 img: videogame.background_image,
-                rating: videogame.rating,
                 genres: videogame.genres.map(genre => genre.name),
-                created: false
             }})
 
         const getDBGameByName = await Videogame.findAll({
             attributes:['id','name','img'],
-            include: [{
-                model: Genre,
-                attributes:['name']
-            }],
             where: {
                 name:{ [Op.iLike]:`%${name}%` }  
             }
         })
+
+        console.log(getDBGameByName)
 
         if(getDBGameByName.length < 1 && apiGamesByName.length < 1 ) {
             res.send('No games found')
@@ -65,7 +61,7 @@ router.get('/', async (req, res, next) => {
                 ...getDBGameByName,
                 ...apiGamesByName
             ] 
-            res.send(searchResult.slice(0,15))
+            res.send(searchResult)
         }
 
     } else { 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getVideoGamesGenres, filterByGenre } from '../../redux/actions';
+import { getVideoGamesGenres, filterByGenre, getVideoGames } from '../../redux/actions';
 
 export default function FilterByGenre() {
     const myState = useSelector(state => state.videoGamesGenres)
@@ -13,7 +13,11 @@ export default function FilterByGenre() {
     }, [dispatch])
 
     const handleGenre = (e) => {
-        dispatch(filterByGenre(e.target.value))
+        if (e.target.value === 'all') {
+            dispatch(getVideoGames())
+        } else {
+            dispatch(filterByGenre(e.target.value))
+        }
     }
 
 
@@ -21,6 +25,7 @@ export default function FilterByGenre() {
         <div>
             <select name='genres' onChange={handleGenre}>
                 <option value=''> Seleccione genero</option>
+                <option value='all'> Todos </option>
                 {myState?.map(gen =>
                     <option key={gen.id} value={gen.name} > {gen.name} </option>
                 )}

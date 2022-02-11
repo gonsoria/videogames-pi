@@ -7,13 +7,14 @@ import { getVideoGames } from '../redux/actions'
 
 
 export default function AllCards() {
+    const myState = useSelector(state => state.videoGames)
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getVideoGames())
     }, [dispatch])
 
-    const myState = useSelector(state => state.videoGames)
 
     //Pagination math
     const [currentPage, setCurrentPage] = useState(1);

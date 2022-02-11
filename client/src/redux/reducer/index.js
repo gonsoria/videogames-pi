@@ -8,23 +8,29 @@ import {
      SORT_RATING_DESC,
      SORT_RATING_ASC,
      FILTER_BY_GENRE,
-     FILTER_BY_TYPE
+     FILTER_BY_TYPE,
+     FILTER_TYPE_STATUS,
+     GET_FILTERED_GAMES
 } from "../actions"
 
 const initialState= {
     videoGames: [],
     videoGameDetail: [],
     videoGamesGenres: [],
-    // sortVideoGames:[]
+    allGames:[],
+    filteredVideoGames: [],
+    userVideoGames: [],
+    typeStatus: false
 }
 
 export default function rootReducer (state = initialState, action) {
     switch(action.type) {
         case GET_VIDEOGAMES: 
-            // console.log(action.payload)
             return {
                 ...state,
-                videoGames: action.payload
+                videoGames: action.payload,
+                allGames: action.payload,
+                userVideoGames: action.payload.filter(uvg => uvg.created === true)
             }
         case  GET_VIDEOGAME_DETAIL:
             return {    
@@ -43,17 +49,18 @@ export default function rootReducer (state = initialState, action) {
                 videoGames: action.payload
             }
         case SORT_ASC:
+           const sortAsc = state.videoGames.sort((a,b) => {
+                if(a.name.toLowerCase() < b.name.toLowerCase()){
+                    return -1
+                } else if(a.name.toLowerCase() > b.name.toLowerCase()){
+                    return 1
+                } else {
+                    return 0
+                }
+            })
             return{
                 ...state,
-                videoGames: state.videoGames.sort((a,b) => {
-                    if(a.name.toLowerCase() < b.name.toLowerCase()){
-                        return -1
-                    } else if(a.name.toLowerCase() > b.name.toLowerCase()){
-                        return 1
-                    } else {
-                        return 0
-                    }
-                })
+                videoGames: sortAsc
             }
         case SORT_DESC:
             return{
@@ -97,22 +104,49 @@ export default function rootReducer (state = initialState, action) {
                 )
             }
         case FILTER_BY_GENRE:
-            console.log(action.payload)
-            let genreFilter = state.videoGames.filter(vg => 
-                vg.genres.includes(action.payload) === true
-                )
-            console.log(genreFilter)
-            return {
-                ...state,
-                videoGames: genreFilter
-            }        
+            let genreFilter = state.allGames.filter(vg => vg.genres.includes(action.payload) === true)
+            let genreUserFilter = state.userVideoGames.filter(vg => vg.genres.includes(action.payload) === true)
+            if(state.typeStatus === false){
+                return {
+                    ...state,
+                    videoGames: genreFilter,
+                    filteredVideoGames: genreFilter
+                }        
+            } else {
+                return {
+                    ...state,
+                    videoGames: genreUserFilter,
+                    filteredVideoGames: genreFilter
+                }        
+            }
             
         case FILTER_BY_TYPE:
-            let typeFilter = state.videoGames.filter(tg => tg.created.toString() === action.payload)
-            console.log(typeFilter)
+
+            if(state.filteredVideoGames.length < 1) {
+                let typeFilter = state.allGames.filter(tg => tg.created.toString() === action.payload)
+                console.log(typeFilter)
+                return {
+                    ...state,
+                    videoGames: typeFilter,
+                }               
+            } else {
+                let typeFilter = state.filteredVideoGames.filter(tg => tg.created.toString() === action.payload)
+                console.log(typeFilter)
+                return {
+                    ...state,
+                    videoGames: typeFilter,
+                }               
+            }
+        case FILTER_TYPE_STATUS:
             return {
                 ...state,
-                videoGames: typeFilter 
+                typeStatus: action.payload
+            }
+        case GET_FILTERED_GAMES:
+            console.log(state.filteredVideoGames)
+            return {
+                ...state,
+                videoGames: state.filteredVideoGames
             }
         default:
             return state

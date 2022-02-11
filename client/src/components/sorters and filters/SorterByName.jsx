@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { sortVideoGamesAsc, sortVideoGamesDesc } from '../../redux/actions'
 
 export default function SorterByName() {
-
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
@@ -12,11 +11,11 @@ export default function SorterByName() {
             dispatch(sortVideoGamesAsc())
         } else if (e.target.value === 'Z') {
             dispatch(sortVideoGamesDesc())
-
         }
     }
 
-    useEffect(() => { }, [dispatch])
+    useEffect(() => {
+    }, [dispatch])
 
     return (
         <div>

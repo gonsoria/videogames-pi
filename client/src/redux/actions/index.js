@@ -11,7 +11,8 @@ export const SORT_RATING_DESC = 'SORT_RATING_DESC'
 export const SORT_RATING_ASC = 'SORT_RATING_ASC'
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 export const FILTER_BY_TYPE = 'FILTER_BY_TYPE'
-
+export const FILTER_TYPE_STATUS = 'FILTER_TYPE_STATUS'
+export const GET_FILTERED_GAMES = 'GET_FILTERED_GAMES'
 
 const URL_GET_VIDEOGAMES = 'http://localhost:3001/videogames'
 const URL_GET_GENRES = 'http://localhost:3001/genres'
@@ -104,9 +105,23 @@ export const filterByGenre = (name) => {
     }
 }
 
+export const getFilteredGames = () => {
+    return {
+        type: GET_FILTERED_GAMES,
+        payload: null
+    }
+}
+
 export const filterByType = (created) => {
     return {
         type: FILTER_BY_TYPE,
         payload: created
+    }
+}
+
+export const filterTypeStatus = (active) => {
+    return {
+        type: FILTER_TYPE_STATUS,
+        payload: active
     }
 }
