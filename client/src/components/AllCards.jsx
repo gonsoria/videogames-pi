@@ -5,9 +5,11 @@ import Card from './Card'
 import Pagination from './Pagination';
 import { getVideoGames } from '../redux/actions'
 import styles from './styles/AllCards.module.css'
+import Loader from './Loader';
 
 export default function AllCards() {
     const myState = useSelector(state => state.videoGames)
+    const loading = useSelector(state => state.loader)
 
     const dispatch = useDispatch();
 
@@ -36,17 +38,21 @@ export default function AllCards() {
             />
             <div className={styles.cards_container}>
                 {
-                    currentCards?.map(vg =>
-                        <div key={vg.id} className={styles.card}>
-                            <Card
-                                id={vg.id}
-                                name={vg.name}
-                                img={vg.img}
-                                genres={vg.genres}
-                            />
-                        </div>
-                    )}
+                    loading === true ? <Loader /> : (
+                        currentCards.length < 1 ? <h2>No cards found</h2> : currentCards.map(vg =>
+                            <div key={vg.id} className={styles.card}>
+                                <Card
+                                    id={vg.id}
+                                    name={vg.name}
+                                    img={vg.img}
+                                    genres={vg.genres}
+                                />
+                            </div>)
+                    )
+                }
             </div>
         </div>
     );
 }
+
+

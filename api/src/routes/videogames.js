@@ -36,37 +36,33 @@ router.get('/', async (req, res, next) => {
     })
 
     if(name) {
-        try {
-            const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
+        const getApiGamesByName = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
 
-            const apiGamesByName = getApiGamesByName.data.results.map(videogame => {
-                return {
-                    id: videogame.id,
-                    name: videogame.name,
-                    img: videogame.background_image,
-                    genres: videogame.genres.map(genre => genre.name),
-                }})
-    
-            const getDBGameByName = await Videogame.findAll({
-                attributes:['id','name','img'],
-                where: {
-                    name:{ [Op.iLike]:`%${name}%` }  
-                }
-            })
-    
-            console.log(getDBGameByName)
-    
-            if(getDBGameByName.length < 1 && apiGamesByName.length < 1 ) {
-                res.send([])
-            } else {
-                const searchResult = [
-                    ...getDBGameByName,
-                    ...apiGamesByName
-                ] 
-                res.send(searchResult)   
+        const apiGamesByName = getApiGamesByName.data.results.map(videogame => {
+            return {
+                id: videogame.id,
+                name: videogame.name,
+                img: videogame.background_image,
+                genres: videogame.genres.map(genre => genre.name),
+            }})
+
+        const getDBGameByName = await Videogame.findAll({
+            attributes:['id','name','img'],
+            where: {
+                name:{ [Op.iLike]:`%${name}%` }  
             }
-        } catch(err) {
-            next(err)
+        })
+
+        console.log(getDBGameByName)
+
+        if(getDBGameByName.length < 1 && apiGamesByName.length < 1 ) {
+            res.send([])
+        } else {
+            const searchResult = [
+                ...getDBGameByName,
+                ...apiGamesByName
+            ] 
+            res.send(searchResult)   
         }
 
     } else { 
