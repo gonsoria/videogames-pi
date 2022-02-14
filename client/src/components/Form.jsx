@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getVideoGamesGenres } from '../redux/actions'
+import image from '../assets/default-img.png'
 
 
 export default function Form() {
@@ -12,7 +13,7 @@ export default function Form() {
         platform: [],
         released: '',
         rating: '',
-        img: '',
+        img: image,
         created: true,
         letras: []
     }

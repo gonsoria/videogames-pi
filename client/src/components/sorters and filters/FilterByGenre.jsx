@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getVideoGamesGenres, filterByGenre, getVideoGames } from '../../redux/actions';
+import styles from '.././styles/SelectBox.module.css'
 
 export default function FilterByGenre() {
     const myState = useSelector(state => state.videoGamesGenres)
@@ -22,10 +23,10 @@ export default function FilterByGenre() {
 
 
     return (
-        <div>
-            <select name='genres' onChange={handleGenre}>
-                <option value=''> Seleccione genero</option>
-                <option value='all'> Todos </option>
+        <div className={styles.box}>
+            <select name='genres' onChange={handleGenre} >
+                <option value=''> Genre</option>
+                <option value='all'> All genres </option>
                 {myState?.map(gen =>
                     <option key={gen.id} value={gen.name} > {gen.name} </option>
                 )}

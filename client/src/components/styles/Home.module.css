@@ -1,12 +1,25 @@
 .home {
     display: flex;
+    background-color: rgba(0, 0, 0, 0.219);
+    height:calc(100vh - 40px - 3em);
 }
 
-.sideBar {
+.home_bkg {
+    position: absolute;
+    background: #0D0D0D;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    z-index: -10;
+    
+}
+
+/* .sideBar {
     flex-grow: 1;
 }
 
 .app_container {
-    flex-grow: 4;
-}
+    flex-grow: 1;
+} */
 

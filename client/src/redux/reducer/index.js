@@ -11,6 +11,8 @@ import {
      FILTER_BY_TYPE,
      FILTER_TYPE_STATUS,
      GET_FILTERED_GAMES,
+     SET_LOADER,
+     SET_ERROR
 } from "../actions"
 
 const initialState= {
@@ -21,7 +23,8 @@ const initialState= {
     filteredVideoGames: [],
     userVideoGames: [],
     typeStatus: false,
-    loader: true
+    loader: true,
+    error500: false
 }
 
 export default function rootReducer (state = initialState, action) {
@@ -35,9 +38,17 @@ export default function rootReducer (state = initialState, action) {
                 loader:false
             }
         case  GET_VIDEOGAME_DETAIL:
-            return {    
-                ...state,
-                videoGameDetail: action.payload
+            if(action.payload){
+                return {    
+                    ...state,
+                    loader:false,
+                    videoGameDetail: action.payload
+                }
+            } else {
+                return{
+                    ...state,
+                    error500: true
+                }
             }
         case GET_VIDEOGAMES_GENRES:
             // console.log(action.payload)
@@ -149,6 +160,16 @@ export default function rootReducer (state = initialState, action) {
             return {
                 ...state,
                 videoGames: state.filteredVideoGames
+            }
+        case SET_LOADER:
+            return{
+                ...state,
+                loader: action.payload
+            }
+        case SET_ERROR:
+            return{
+                ...state,
+                error500: action.payload
             }
         default:
             return state

@@ -1,11 +1,9 @@
 import React from 'react'
-
+import loader from '../assets/loader.gif'
 export default function Loader() {
     return (
         <div>
-            <h2>
-                Loading...
-            </h2>
+            <img src={loader} height="350" alt="loading" />
         </div>
     )
 }

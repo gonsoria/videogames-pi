@@ -1,10 +1,30 @@
 .nav_container {
     display: flex;
-    margin:5px 0;
-    justify-content: center;
+    justify-content: left;
+    padding-bottom: 10px;
+    padding-left: 15px;
 }
 
 .button_container {
     margin: 0;
-    padding: 0 7px;
+    padding: 0 3px;
+}
+
+.button , .active{
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 1em;   
+}
+.active {
+    background-color: red;
+}
+
+.button:hover {
+    color: black;
+    background-color: white;
+    font-weight: 700;
+    cursor: pointer;
 }

@@ -41,7 +41,8 @@ router.get('/:id', async (req, res, next) => {
                 res.send(formatIdSearch)
             }
         } else {
-            const videoGameById = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+            try {
+                const videoGameById = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
                 const videoGameData = videoGameById.data
                 const videoGameDetail = {
                     id: videoGameData.id,
@@ -53,8 +54,12 @@ router.get('/:id', async (req, res, next) => {
                     rating: videoGameData.rating,
                     platform: videoGameData.platforms.map(elem => elem.platform.name)
                 }
-                res.send(videoGameDetail)            
-            }        
+                res.send(videoGameDetail)                          
+            } catch (error) {
+                res.send()
+                next(error)
+            }
+        }        
     } catch (err) {
         next(err)
     }

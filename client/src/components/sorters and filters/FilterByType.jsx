@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterByType, filterTypeStatus, getFilteredGames, getVideoGames } from '../../redux/actions';
+import styles from '.././styles/SelectBox.module.css'
+
 
 export default function FilterByType() {
     const filteredGames = useSelector(state => state.filteredVideoGames)
@@ -22,11 +24,11 @@ export default function FilterByType() {
         }
     }
     return (
-        <div>
+        <div className={styles.box}>
             <select onChange={handleChange}>
-                <option>Tipo de juego</option>
-                <option value='all'>Todos los juegos</option>
-                <option value='true'>Creados por el usuario</option>
+                <option>Type</option>
+                <option value='all'>All games</option>
+                <option value='true'>User games</option>
             </select>
         </div>
     )

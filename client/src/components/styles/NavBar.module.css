@@ -1,0 +1,14 @@
+.sideBar_container {
+    text-align: start;
+    color: white;
+    width: 15vw;
+    margin-top: 100px;   
+}
+
+.sideBar_container h2 {
+    margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1em;
+    padding: 10px 15px;
+}
+

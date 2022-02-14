@@ -6,6 +6,7 @@ import Pagination from './Pagination';
 import { getVideoGames } from '../redux/actions'
 import styles from './styles/AllCards.module.css'
 import Loader from './Loader';
+import notfound from '../assets/notfound.png'
 
 export default function AllCards() {
     const myState = useSelector(state => state.videoGames)
@@ -35,19 +36,27 @@ export default function AllCards() {
                 cardsPerPage={cardsPerPage}
                 totalCards={myState.length}
                 selectPage={selectPage}
+                activePage={currentPage}
             />
             <div className={styles.cards_container}>
                 {
                     loading === true ? <Loader /> : (
-                        currentCards.length < 1 ? <h2>No cards found</h2> : currentCards.map(vg =>
-                            <div key={vg.id} className={styles.card}>
-                                <Card
-                                    id={vg.id}
-                                    name={vg.name}
-                                    img={vg.img}
-                                    genres={vg.genres}
-                                />
-                            </div>)
+                        currentCards.length < 1 ?
+                            <div>
+                                <img src={notfound} alt='game not found' height='300px' />
+                                <h2 className={styles.notFound}>
+                                    NO GAMES FOUND
+                                </h2>
+                            </div> : currentCards.map(vg =>
+                                <div key={vg.id} >
+                                    <Card
+                                        id={vg.id}
+                                        name={vg.name}
+                                        img={vg.img}
+                                        genres={vg.genres}
+                                        rating={vg.rating}
+                                    />
+                                </div>)
                     )
                 }
             </div>

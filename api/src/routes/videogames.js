@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
 
     // pedido db
     const getDBGames = await Videogame.findAll({
-        attributes: ['id','name', 'img','created'],
+        attributes: ['id','name', 'img','created','rating'],
         include: [{
             model: Genre,
             attributes:['name'],
@@ -31,6 +31,7 @@ router.get('/', async (req, res, next) => {
             name:dbGames.name,
             img:dbGames.img,
             genres:dbGames.genres.map(ge=>ge.name),
+            rating:dbGames.rating,
             created:dbGames.created
         }
     })

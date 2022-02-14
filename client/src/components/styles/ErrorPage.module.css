@@ -1,0 +1,42 @@
+.bkg {
+    position: absolute;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.error_container {
+    border: 1px solid white;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin:auto;
+    padding: 20PX 50px;
+    width: fit-content;
+    height: fit-content;
+}
+
+
+.bkg h2 {
+    color: white;
+    font-family: 'Montserrat', sans-serif;    
+}
+
+.bkg button {
+    padding: 10px;
+    border: none;
+    text-decoration:underline;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrat', sans-serif;    
+    font-size: 1em;
+}
+
+.bkg button:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.411);
+    text-decoration:none;
+    cursor: pointer;
+}

@@ -1,11 +1,73 @@
 .card_container {
-    border: 1px solid black;    
+    position: relative;
+    width: 25vw;    
+    height: 50vh;
+    margin-bottom: 10px;
 }
 
-.cardName_container {
-    border: 1px solid black;
+.cardImg_container {
+    position: absolute;
+    width: 25vw;
+    height: 50vh;
+    overflow: hidden;
 }
 
-.cardName_container h1{
+.img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card_container:hover {
+    cursor: pointer;
+}
+
+.details {
+    position: absolute;
+    background-color: #0d0d0db6;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cardName {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;    
+    font-size: 1.2em;
+    font-weight: 600;
     margin: 0;
+    color: white;
 }
+.gameData_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 0 10px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.cardGenre_container {
+    flex-grow: 3;
+}
+
+.cardGenre_container h4, .rating {
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 0.9em;   
+}
+
+.cardGenre_container h4 {
+    color: white;
+    font-weight: 400;
+}
+
+.rating {
+    color: rgb(224, 224, 26);
+    font-weight: 500;
+}
+

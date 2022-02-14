@@ -1,19 +1,42 @@
 .searchBar_container {
-    border: 1px solid black;
     display:flex;
     align-items: baseline;
-    padding: 5px ;
-    width: 80vw;
+    margin-top: 15px;
+    margin-left: 20px;
 }
 
 .searchBar_input{
     flex-grow: 2;
-    padding: 3px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 7px 0 0 7px;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrat', sans-serif;    
+    font-size: 1em;
+    outline: none;
 }
 
-.searchBar_button ,
+.searchBar_create,
+.searchBar_button {
+    padding: 10px;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrat', sans-serif;    
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.searchBar_button {
+    border-radius: 0 7px 7px 0;
+}
 .searchBar_create {
-    padding: 3px;
-    margin:0 5px;
-    flex-grow: 1;
+    border-radius: 7px;
+}
+.searchBar_input:hover,
+.searchBar_button:hover,
+.searchBar_create:hover {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.411);
+    cursor: pointer;
 }

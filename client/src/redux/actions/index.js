@@ -13,6 +13,8 @@ export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 export const FILTER_BY_TYPE = 'FILTER_BY_TYPE'
 export const FILTER_TYPE_STATUS = 'FILTER_TYPE_STATUS'
 export const GET_FILTERED_GAMES = 'GET_FILTERED_GAMES'
+export const SET_LOADER = 'SET_LOADER'
+export const SET_ERROR = 'SET_ERROR'
 
 const URL_GET_VIDEOGAMES = 'http://localhost:3001/videogames'
 const URL_GET_GENRES = 'http://localhost:3001/genres'
@@ -123,5 +125,18 @@ export const filterTypeStatus = (active) => {
     return {
         type: FILTER_TYPE_STATUS,
         payload: active
+    }
+}
+
+export const setLoader = () => {
+    return {
+        type: SET_LOADER,
+        payload: true
+    }
+}
+export const setError500= () => {
+    return {
+        type: SET_ERROR,
+        payload: false
     }
 }
