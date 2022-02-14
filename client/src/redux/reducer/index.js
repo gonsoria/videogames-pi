@@ -35,7 +35,7 @@ export default function rootReducer (state = initialState, action) {
                 videoGames: action.payload,
                 allGames: action.payload,
                 userVideoGames: action.payload.filter(uvg => uvg.created === true),
-                loader:false
+                loader:false,
             }
         case  GET_VIDEOGAME_DETAIL:
             if(action.payload){

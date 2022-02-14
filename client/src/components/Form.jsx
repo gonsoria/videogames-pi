@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getVideoGamesGenres } from '../redux/actions'
 import image from '../assets/default-img.png'
-
+import styles from './styles/Form.module.css'
 
 export default function Form() {
     const formValues = {
@@ -17,6 +17,8 @@ export default function Form() {
         created: true,
         letras: []
     }
+
+    const platforms = ['PC', 'PlayStation 3', 'PlayStation 4', 'PlayStation 5', 'XBox 360', 'Nintendo', 'Android', 'IOs']
 
     //Estados
     const [videoGameData, setVideoGameData] = useState(formValues)
@@ -93,19 +95,36 @@ export default function Form() {
         setVideoGameGenre(check)
     }
 
+    const handleImg = (e) => {
+        setVideoGameData({
+            ...videoGameData,
+            img: document.getElementById('img').value
+        })
+    }
+
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <h4>Game name</h4>
-                <input name="name" value={videoGameData.name} onChange={handleOnChange} />
+            <div className={styles.form_bkg}></div>
+            <form onSubmit={handleSubmit} className={styles.form_container}>
+                <h2 className={styles.form_title}>Post your Video Game</h2>
 
-                <h4>Description</h4>
+                <h4>Game name:<span> *</span></h4>
+                <input className={styles.input_text} name="name" value={videoGameData.name} onChange={handleOnChange} />
+
+                <h4>Image URL:</h4>
+                <div className={styles.url_container}>
+                    <input className={styles.url_text} type="text" name='img' id='img' />
+                    <button className={styles.img_button} onClick={handleImg}>▲</button>
+                </div>
+                <img className={styles.img} src={videoGameData.img} alt="user videogame img" />
+
+
+                <h4>Description:<span> *</span></h4>
                 <textarea name="description" value={videoGameData.description} onChange={handleOnChange} />
 
-                <h4>Released date</h4>
-                <input type='date' name='released' value={videoGameData.released} onChange={handleOnChange} />
-
-                <h4>Rating</h4>
+                <h4>Released date:<span> *</span></h4>
+                <input className={styles.released} type='date' name='released' value={videoGameData.released} onChange={handleOnChange} />
+                <h4>Rating:<span> *</span></h4>
                 <select name='rating' onChange={handleOnChange}>
                     <option value=''>  </option>
                     <option value='1'> 1 </option>
@@ -114,29 +133,17 @@ export default function Form() {
                     <option value='4'> 4 </option>
                     <option value='5'> 5 </option>
                 </select>
-
-                <div>
-                    <h4>Platforms</h4>
-                    <label>PC</label>
-                    <input type='checkbox' value='PC' onChange={handlePlatformCheckBox} />
-                    <label>PlayStation 3</label>
-                    <input type='checkbox' value='PlayStation 3' onChange={handlePlatformCheckBox} />
-                    <label>PlayStation 4</label>
-                    <input type='checkbox' value='PlayStation 4' onChange={handlePlatformCheckBox} />
-                    <label>PlayStation 5</label>
-                    <input type='checkbox' value='PlayStation 5' onChange={handlePlatformCheckBox} />
-                    <label>XBox 360</label>
-                    <input type='checkbox' value='XBox 360' onChange={handlePlatformCheckBox} />
-                    <label>Nintendo</label>
-                    <input type='checkbox' value='Nintendo' onChange={handlePlatformCheckBox} />
-                    <label>Android</label>
-                    <input type='checkbox' value='Android' onChange={handlePlatformCheckBox} />
-                    <label>IOs</label>
-                    <input type='checkbox' value='IOs' onChange={handlePlatformCheckBox} />
+                <h4>Platforms: <span> *</span></h4>
+                <div className={styles.form_platforms}>
+                    {platforms.map((plat, index) =>
+                        <div key={index}>
+                            <label>{plat}</label>
+                            <input type='checkbox' value={plat} onChange={handlePlatformCheckBox} />
+                        </div>
+                    )}
                 </div>
-
-                <div>
-                    <h4>Genres</h4>
+                <h4>Genres:<span> *</span></h4>
+                <div className={styles.form_genres}>
                     {myState?.map(gen =>
                         <div key={gen.id}>
                             <label>{gen.name}</label>
@@ -144,14 +151,11 @@ export default function Form() {
                         </div>
                     )}
                 </div>
-
-
-
-                <button type='submit'>CREATE GAME</button>
+                {
+                    error ? (<div className={styles.error}>*{error}</div>) : null
+                }
+                <button className={styles.submit_button} type='submit'>CREATE GAME</button>
             </form>
-            {
-                error ? (<div>{error}</div>) : null
-            }
         </div>
     );
 }

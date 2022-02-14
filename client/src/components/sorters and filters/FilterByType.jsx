@@ -23,6 +23,8 @@ export default function FilterByType() {
 
         }
     }
+
+
     return (
         <div className={styles.box}>
             <select onChange={handleChange}>

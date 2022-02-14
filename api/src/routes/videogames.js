@@ -45,10 +45,11 @@ router.get('/', async (req, res, next) => {
                 name: videogame.name,
                 img: videogame.background_image,
                 genres: videogame.genres.map(genre => genre.name),
+                rating: videogame.rating
             }})
 
         const getDBGameByName = await Videogame.findAll({
-            attributes:['id','name','img'],
+            attributes:['id','name','img','rating'],
             where: {
                 name:{ [Op.iLike]:`%${name}%` }  
             }
