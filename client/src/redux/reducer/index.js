@@ -119,6 +119,7 @@ export default function rootReducer (state = initialState, action) {
         case FILTER_BY_GENRE:
             let genreFilter = state.allGames.filter(vg => vg.genres.includes(action.payload) === true)
             let genreUserFilter = state.userVideoGames.filter(vg => vg.genres.includes(action.payload) === true)
+            
             if(state.typeStatus === false){
                 return {
                     ...state,
@@ -171,6 +172,7 @@ export default function rootReducer (state = initialState, action) {
                 ...state,
                 error500: action.payload
             }
+    
         default:
             return state
     }

@@ -69,7 +69,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     const {videoGameData, videoGameGenre } = req.body
-    console.log(videoGameData,videoGameGenre)
+    // console.log(videoGameData,videoGameGenre)
     if(videoGameData && videoGameGenre){
         try {
             const newVideogame = await Videogame.create(videoGameData) 

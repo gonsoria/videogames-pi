@@ -45,14 +45,15 @@ router.get('/', async (req, res, next) => {
                 name: videogame.name,
                 img: videogame.background_image,
                 genres: videogame.genres.map(genre => genre.name),
-                rating: videogame.rating
+                rating: videogame.rating,
+
             }})
 
         const getDBGameByName = await Videogame.findAll({
             attributes:['id','name','img','rating'],
             where: {
                 name:{ [Op.iLike]:`%${name}%` }  
-            }
+            }  
         })
 
         console.log(getDBGameByName)
@@ -89,7 +90,8 @@ router.get('/', async (req, res, next) => {
                         img: videogame.background_image,
                         rating: videogame.rating,
                         genres: videogame.genres.map(genre => genre.name),
-                        created: false
+                        created: false,
+
                     };
                 }); 
     

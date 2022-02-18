@@ -20,10 +20,8 @@ export default function FilterByType() {
         } else {
             dispatch(filterByType(e.target.value))
             dispatch(filterTypeStatus(true))
-
         }
     }
-
 
     return (
         <div className={styles.box}>

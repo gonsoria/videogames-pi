@@ -20,6 +20,7 @@ export default function Pagination({ cardsPerPage, totalCards, selectPage, activ
                     </ul>
                 ))}
             </nav>
+
         </div>
     )
 }

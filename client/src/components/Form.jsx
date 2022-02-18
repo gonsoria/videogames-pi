@@ -52,8 +52,16 @@ export default function Form() {
             setError('Video game description is required!')
             return;
         }
+        if (videoGameData.description.length.toString() < 15) {
+            setError('Description must have at least 15 characters.')
+            return;
+        }
         if (videoGameData.released === '') {
             setError('Video game released date is required!')
+            return;
+        }
+        if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(videoGameData.released)) {
+            setError('Invalid date format (must follows aaaa-mm-dd)')
             return;
         }
         if (videoGameData.rating === '') {
@@ -81,6 +89,7 @@ export default function Form() {
         if (videoGameData.platform.includes(e.target.value)) {
             check = check.filter(a => a !== e.target.value)
         }
+
         setVideoGameData({
             ...videoGameData,
             platform: check
@@ -101,6 +110,8 @@ export default function Form() {
             img: document.getElementById('img').value
         })
     }
+
+
 
     return (
         <div>
@@ -154,7 +165,7 @@ export default function Form() {
                 {
                     error ? (<div className={styles.error}>*{error}</div>) : null
                 }
-                <button className={styles.submit_button} type='submit'>CREATE GAME</button>
+                <button className={styles.submit_button} type='submit' >CREATE GAME</button>
             </form>
         </div>
     );
