@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './styles/Pagination.module.css'
 
 export default function Pagination({ cardsPerPage, totalCards, selectPage, activePage }) {
+
     const pages = []
 
     for (let i = 1; i <= Math.ceil(totalCards / cardsPerPage); i++) {

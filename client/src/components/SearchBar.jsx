@@ -14,6 +14,10 @@ export default function SearchBar() {
     }
 
 
+    // const handleSearch = () => {
+    //     dispatch(searchVideoGame(search))
+    //     setSearch('')
+    // }
     const handleSearch = () => {
         dispatch(searchVideoGame(search))
         setSearch('')

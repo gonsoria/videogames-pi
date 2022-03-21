@@ -15,6 +15,7 @@ export const FILTER_TYPE_STATUS = 'FILTER_TYPE_STATUS'
 export const GET_FILTERED_GAMES = 'GET_FILTERED_GAMES'
 export const SET_LOADER = 'SET_LOADER'
 export const SET_ERROR = 'SET_ERROR'
+export const SEARCH_RATING = 'SEARCH_RATING'
 
 const URL_GET_VIDEOGAMES = 'http://localhost:3001/videogames'
 const URL_GET_GENRES = 'http://localhost:3001/genres'
@@ -57,7 +58,7 @@ export const getVideoGamesGenres = () => {
         dispatch({
             type: GET_VIDEOGAMES_GENRES,
             payload: req.data
-        })
+        }) 
     }
 }
 
@@ -75,6 +76,12 @@ export const searchVideoGame = (searchName) => {
         }
     }
 }
+// export const searchVideoGame = (rating) => {
+//     return {
+//         type: SEARCH_RATING,
+//         payload: rating
+//     }
+// }
 
 export const sortVideoGamesAsc = () => {
     return{

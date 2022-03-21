@@ -8,7 +8,7 @@ ENDPOINT
      ---> Busqueda en base de datos
 */
 
-router.get('/', async (req,res, next) => {
+router.get('/',  async (req,res, next) => {
     try {
         const genres = await Genre.findAll({attributes: ['name','id']})
         if(genres) {

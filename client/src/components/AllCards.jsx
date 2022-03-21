@@ -25,6 +25,7 @@ export default function AllCards() {
     const cardsPerPage = 15
     const lastCardIndex = currentPage * cardsPerPage
     const firstCardIndex = lastCardIndex - cardsPerPage
+
     const currentCards = myState.slice(firstCardIndex, lastCardIndex)
 
     //change page

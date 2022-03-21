@@ -9,7 +9,6 @@ const { API_KEY } = process.env
 ENDPOINTS
     https://api.rawg.io/api/games?search={game}
     https://api.rawg.io/api/games 
-
 */
 
 router.get('/', async (req, res, next) => {

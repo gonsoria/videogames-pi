@@ -12,7 +12,8 @@ import {
      FILTER_TYPE_STATUS,
      GET_FILTERED_GAMES,
      SET_LOADER,
-     SET_ERROR
+     SET_ERROR,
+     SEARCH_RATING
 } from "../actions"
 
 const initialState= {
@@ -172,6 +173,14 @@ export default function rootReducer (state = initialState, action) {
                 ...state,
                 error500: action.payload
             }
+        case SEARCH_RATING:
+            console.log(action.payload)
+            let searchResult = state.allGames.filter(sr => sr.rating >= action.payload)
+            return {
+                ...state,
+                videoGames: searchResult
+            }
+
     
         default:
             return state
