@@ -2,7 +2,11 @@
 
 ## Objetivos del Proyecto
 
-- Construir una App utlizando React, Redux, Node y Sequelize.
+- Construir una App de videojuegos que muestre informacion consumiendo datos de una API externa. 
+- Desde el backend crear un servidor conectado a una base de datos para almacenar videojuegos creados por el usuario.
+- Crear formulario controlado con JS para la creacion de un juego.
+- Filtrar por genero o creados por el usuario, ordenar alfabeticamente y por valoracion.
+- Buscar videojuegos en la api.
 
 ### Endpoints/Flags utilizados
 
